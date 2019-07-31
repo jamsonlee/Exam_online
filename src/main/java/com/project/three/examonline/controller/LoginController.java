@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 这个类是login时的控制器
+ * 这个类是login时的控制器，不建议使用我的，用魏孝文的loginController
  */
 @Controller
 @RequestMapping("/login")

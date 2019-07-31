@@ -49,12 +49,11 @@ public class PaperController {
   @ResponseBody
   public String deletePaper(Integer id) {
     if(id!=null&&id!=0){
-      /*Paper paper = new Paper(id, null,null,null,null);
+      Paper paper = new Paper(id, null,null,null,null);
       if(paperService.queryPaper(paper)!=null&&paperService.queryPaper(paper).size()==1){
         paperService.deletePaper(paper);
         return "paperDeleteSuccess";
-      }*/
-      return "paperDeleteSuccess";
+      }
     }
     return "paperDeleteFailed";
   }
@@ -70,14 +69,13 @@ public class PaperController {
   @ResponseBody
   public String update(Integer id, Integer courseId){
     if(id!=null&&id!=0&&courseId!=null&&courseId!=0){
-      Paper paper = new Paper(id, 100, 60, null, courseId);
-      /*List<Paper> paperList = paperService.queryPaper(paper);
+      Paper paper = new Paper(id, 100, 60, null, null);
+      List<Paper> paperList = paperService.queryPaper(paper);
       if(paperList!=null&&paperList.size()==1){
+        paper.setCourseId(courseId);
         paperService.updatePaper(paper);
-         //TODO:更新部分
         return "paperUpdateSuccess";
-      }*/
-      return "paperUpdateSuccess";
+      }
     }
     return "paperUpdateFailed";
   }
@@ -90,11 +88,6 @@ public class PaperController {
   @ResponseBody
   public List<Paper> getAllPaper(){
     Paper paper = new Paper();
-/*
-    List<Paper> papers = paperService.queryPaper(paper);
-*/
-    List<Paper> papers = new ArrayList<>();
-    papers.add(new Paper(1, 100, 60, null, 2));
-    return papers;
+    return paperService.queryPaper(paper);
   }
 }
