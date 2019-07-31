@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <title>考试管理</title>
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="../jquery-3.2.1.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="../css/bootstrap.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../css/popper.js"></script>
+    <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body style="">
+<!--顶部导航栏-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">首页</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="adminExam.html">考试安排</a></li>
+                <li><a href="questionQuery.html">题目管理</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">信息管理<span class="caret"></span><span class="sr-only">(current)</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="teacherQuery.html">教师管理</a></li>
+                        <li><a href="studentQuery.html">学生管理</a></li>
+                        <li><a href="adminQuery.html">管理员管理</a></li>
+                        <li><a href="subjectQuery.html">科目管理</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">退出登录</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="col-md-3"></div>
+<div class="col-md-6">
+    <a href="adminAddExam.html"> <input class="btn btn-default" type="button" value="添加考试"></a>
+    <br/>
+    <br/>
+
+    <table class="table table-hover" id="tableArea">
+
+    </table>
+</div>
+<div class="col-md-3" id="changeArea">
+
+</div>
+<script>
+    $(document).ready(function() {
+        let url = "/exam/alltest/";
+        $.ajax({
+            url: url,
+            type: "GET",
+            datatype:"json",
+            success:function (list) {
+                var insertTable = `<tr><th>考试ID</th><th>考试科目</th><th>试卷ID</th><th>考试时间</th><th>操作</th></tr>`;
+                for(var exam of list) {
+                    insertTable += `<tr><td>${exam.id}</td><td>${exam.course}</td><td>${exam.paper}</td><td>${exam.time}</td><td>
+                                <button class="btn btn-default btn-xs" id="change${exam.id}" type="button" onclick="changeExam(${exam.id})">更改考试</button>
+                                <button class="btn btn-default btn-xs" id="delete${exam.id}" type="button" onclick="deleteExam(${exam.id})">删除考试</button></td></tr>`
+                }
+                $("#tableArea").append(insertTable);
+            },
+            error:function (str) {
+                alert("出现错误！");
+            }
+        })
+    })
+</script>
+<script>
+    function deleteExam(id) {
+        let data = "id="+id;
+        let url = "/exam/delete/";
+        $.ajax({
+            url: url,
+            type: "GET",
+            datatype:"json",
+            data: data,
+            success:function (ret) {
+                if(ret==="deleteExamSuccess"){
+                    alert("删除成功！");
+                    window.location.reload();
+                }else{
+                    alert("删除失败");
+                }
+            },
+            error:function (str) {
+                alert("出现错误！");
+            }
+        })
+    }
+</script>
+
+<script>
+    function changeExam(id) {
+        let data = "id="+id;
+        let url = "/exam/getExamById/";//注意：此处的url不对
+        $.ajax({
+            url: url,
+            type: "GET",
+            datatype:"json",
+            data: data,
+            success:function (exam) {
+                console.log(exam);
+                let insertHtml = `<input type="text" placeholder="${exam.course}" id="changeExamCourseId">
+                                  <input type="text" placeholder="${exam.paper}" id="changeExamPaperId">
+                                  <button type="button" id="changeExamSubmit" onclick="commitChange(${exam.id})">更改</button>`;
+                $("#changeArea").append(insertHtml);
+            },
+            error:function (str) {
+                alert("出现错误！");
+            }
+        })
+    }
+</script>
+<script>
+    function commitChange(id) {
+        var courseId = $("#changeExamCourseId").val();
+        var paperId = $("#changeExamPaperId").val();
+        let data = "id="+id+"&courseId="+courseId+"&paperId="+paperId;
+        let url = "/exam/update/";
+        $.ajax({
+            url: url,
+            type: "GET",
+            datatype:"json",
+            data: data,
+            success:function (ret) {
+                if(ret==="updateExamSuccess"){
+                    alert("提交成功！");
+                    window.location.reload();
+                }else {
+                    alert("提交失败！");
+                }
+            },
+            error:function (str) {
+                alert("出现错误！");
+            }
+        })
+    }
+</script>
+
+
+
+
+</body>
+</html>

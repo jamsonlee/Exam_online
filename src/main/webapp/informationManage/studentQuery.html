@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <title>学生管理</title>
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="../jquery-3.2.1.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="../css/bootstrap.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../css/popper.js"></script>
+    <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body style="">
+<!--顶部导航栏-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="adminMainFace.html">首页</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="adminExam.html">考试安排</a></li>
+                <li><a href="questionQuery.html">题目管理</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">信息管理<span class="caret"></span><span class="sr-only">(current)</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="teacherQuery.html">教师管理</a></li>
+                        <li><a href="studentQuery.html">学生管理</a></li>
+                        <li><a href="adminQuery.html">管理员管理</a></li>
+                        <li><a href="subjectQuery.html">科目管理</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" id="user-id"></a></li>
+                <li><a href="../main/login.html">退出登录</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+<br/>
+<br/>
+<div class="container">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+    </div>
+</div>
+
+<div class="col-md-3"></div>
+<div class="col-md-6">
+    <h1>学生管理</h1>
+    <br/>
+    <br/>
+
+    <div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">管理学生</a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">添加学生</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="profile">
+                <h3>管理学生</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="queryText">查询学生</label>
+                        <input type="text" class="form-control" id="queryText" placeholder="请输入学工号">
+                    </div>
+                    <button type="button" class="btn btn-default" id="btnQuery">查询</button>
+                </form>
+                <br>
+                <br>
+                <br>
+                <br>
+                <table class="table table-hover" id="table1">
+
+                </table>
+            </div>
+
+
+            <div role="tabpanel" class="tab-pane" id="messages">
+                <h3>添加学生</h3>
+                <label for="addStudentNumber">学工号</label>
+                <input class="form-control" type="text" id="addStudentNumber" placeholder="请输入学工号">
+                <label for="addStudentPassword">密码</label>
+                <input class="form-control" type="text" id="addStudentPassword" placeholder="请输入密码"><br/>
+                <input id="btnAdd" class="btn btn-default" type="button" value="提交" style="float: right;">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="col-md-3" id="changeStudentArea">
+
+</div>
+<script>
+    $('#myTabs a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show')
+    })
+</script>
+
+<script>
+    $("#btnQuery").click(function () {
+        let number = $("#queryText").val();
+        let identity = "student";
+        let data = "userId="+number+"&identity="+identity;
+        let url = "/user/query/";
+        $.ajax({
+            url: url,
+            type: "GET",
+            datatype:"json",
+            data: data,
+            success:function (list) {
+                var insertHtml = `<tr><th>身份</th><th>学工号</th><th>姓名</th><th>操作</th></tr>`;
+                for(var student of list) {
+                    insertHtml += `<tr><td>${student.identity}</td><td>${student.userId}</td><td>${student.name}</td>
+                                    <td><button class="btn btn-default btn-xs" value="删除学生" id="delete${student.userId}" name="btnDelete" onclick="deleteStudent(${student.userId})">删除学生</button>
+                                    <button class="btn btn-default btn-xs" value="修改学生" id="chenge${student.userId}" name="btnChange" onclick="changeStudent(${student.userId})">修改学生</button></td></tr>`;
+                }
+                $("#table1").append(insertHtml);
+            },
+            error:function (str) {
+                alert("出现错误！");
+            }
+        })
+    })
+</script>
+<script>
+    $("#btnAdd").click(function () {
+        let number = $("#addStudentNumber").val();
+        let password = $("#addStudentPassword").val();
+        let identity = "student";
+        let data = "userId="+number+"&password="+password+"&identity="+identity;
+        let url = "/user/insert/";
+        $.ajax({
+            url: url,
+            type: "GET",
+            datatype:"json",
+            data: data,
+            success:function (list) {
+                if(list==="success") {
+                    alert("添加成功！");
+                }else{
+                    alert("出现错误! "+list);
+                }
+            },
+            error:function (str) {
+                alert("出现错误！");
+            }
+        })
+    })
+</script>
+<script>
+    function deleteStudent(userId) {
+        let identity = "student";
+        let data = "userId="+userId+"&identity="+identity;
+        let url = "/user/delete/";
+        $.ajax({
+            url: url,
+            type: "GET",
+            datatype:"json",
+            data: data,
+            success:function (list) {
+                if(list==="deleteUserSuccess"){
+                    alert("删除成功！");
+                }else {
+                    alert("出现错误！");
+                }
+            },
+            error:function (str) {
+                alert("出现错误！");
+            }
+        })
+    }
+</script>
+<script>
+    function changeStudent(userId) {
+        let identity = "student";
+        let data = "userId="+userId+"&identity="+identity;
+        let url = "/user/query/";
+        $.ajax({
+            url: url,
+            type: "GET",
+            datatype:"json",
+            data: data,
+            success:function (ret) {
+                console.log(ret);
+                var student = ret[0];
+                let insertHtml = `<input type="text" placeholder="${student.userId}" id="changeTeacherId">
+                                  <input type="text" placeholder="${student.password}" id="changeTeacherPassword">
+                                  <button type="button" value="提交" id="changeTeacherSubmit" onclick="commitChange()">提交</button>`;
+                $("#changeStudentArea").append(insertHtml);
+            },
+            error:function (str) {
+                alert("出现错误！");
+            }
+        })
+    }
+</script>
+<script>
+    function commitChange() {
+        let identity = "student";
+        let userId = $("#changeTeacherId").val();
+        let password = $("#changeTeacherPassword").val();
+        let data = "userId="+userId+"&password="+password+"&identity="+identity;
+        let url = "/user/update";
+        $.ajax({
+            url: url,
+            type: "GET",
+            datatype:"json",
+            data: data,
+            success:function (teacher) {
+                alert("提交成功！");
+            },
+            error:function (str) {
+                alert("出现错误！");
+            }
+        })
+    }
+</script>
+
+
+
+</body>
+</html>
