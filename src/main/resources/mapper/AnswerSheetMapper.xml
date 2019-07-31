@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.three.examonline.dao.AnswerSheetMapper">
+	<insert id="insertAnswerSheet" parameterType="AnswerSheet">
+		insert into
+		answersheet_table(answersheet_answer,answersheet_score,answersheet_student,answersheet_teacher,answersheet_exam)
+		values(#{answer},#{score},#{studentId},#{teacherId},#{examId})
+	</insert>
+	
+	<delete id="deleteAnswerSheet" parameterType="AnswerSheet">
+		delete from answersheet_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			
+			<if test="studentId !=null and studentId != 0">
+				and answersheet_student = #{studentId}
+			</if>
+			
+			<if test="teacherId !=null and teacherId != 0">
+				and answersheet_teacher = #{teacherId}
+			</if>
+			
+			<if test="examId !=null and examId != 0">
+				and answersheet_exam = #{examId}
+			</if>
+		</where>
+	</delete>
+	
+	<update id="updateAnswerSheet" parameterType="AnswerSheet">
+		update answersheet_table
+		<set>
+			<if test="score != null and score != ''">
+				answersheet_score = #{score},
+			</if>
+
+			<if test="teacherId != null and teacherId != 0">
+				answer_teacher = #{teacherId},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="queryAnswerSheet" parameterType="AnswerSheet" resultMap="List_AnswerSheet">
+		select *
+		from answersheet_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			
+			<if test="studentId !=null and studentId != 0">
+				and answersheet_student = #{studentId}
+			</if>
+			
+			<if test="teacherId !=null and teacherId != 0">
+				and answersheet_teacher = #{teacherId}
+			</if>
+			
+			<if test="examId !=null and examId != 0">
+				and answersheet_exam = #{examId}
+			</if>
+		</where>
+	</select>
+
+	<resultMap type="AnswerSheet" id="List_AnswerSheet">
+		<result column="id" property="id" />
+		<result column="answersheet_answer" property="answer" />
+		<result column="answersheet_score" property="score" />
+		<result column="answersheet_student" property="studentId" />
+		<result column="answersheet_teacher" property="teacherId" />
+		<result column="answersheet_exam" property="examId" />
+	</resultMap>
+</mapper>

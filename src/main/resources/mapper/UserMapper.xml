@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.three.examonline.dao.UserMapper">
+	<insert id="insertUser" parameterType="User">
+		insert into
+		user_table(user_identity,user_id,user_password)
+		values(#{identity},#{userId},#{password})
+	</insert>
+
+	<delete id="deleteUser" parameterType="User">
+		delete from user_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+
+			<if test="identity != null and identity != ''">
+				and user_identity = #{identity}
+			</if>
+
+			<if test="userId != null and userId != ''">
+				and user_id = #{userId}
+			</if>
+		</where>
+	</delete>
+
+	<update id="updateUser" parameterType="User">
+		update user_table
+		set user_password = #{password}
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+
+			<if test="identity != null and identity != ''">
+				and user_identity = #{identity}
+			</if>
+
+			<if test="userId != null and userId != ''">
+				and user_id = #{userId}
+			</if>
+		</where>
+	</update>
+
+	<select id="queryUser" parameterType="User" resultMap="List_User">
+		select *
+		from user_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+
+			<if test="identity != null and identity != ''">
+				and user_identity = #{identity}
+			</if>
+
+			<if test="userId != null and userId != ''">
+				and user_id = #{userId}
+			</if>
+		</where>
+	</select>
+
+	<select id="queryStudentByName" parameterType="String"
+		resultMap="List_User">
+		SELECT u.*
+		FROM user_table u, student_table s
+		WHERE s.student_name = #{value} AND u.user_id = s.student_id and u.user_identity = "student"
+	</select>
+	
+	<select id="queryTeacherByName" parameterType="String"
+		resultMap="List_User">
+		SELECT u.*
+		FROM user_table u, teacher_table t
+		WHERE t.teacher_name = #{value} AND u.user_id = t.teacher_id and u.user_identity = "teacher"
+	</select>
+	
+	<select id="queryAdministartorByName" parameterType="String"
+		resultMap="List_User">
+		SELECT u.*
+		FROM user_table u, administrator_table a
+		WHERE a.administrator_name = #{value} AND u.user_id = a.administrator_id and u.user_identity = "administrator"
+	</select>
+	
+	<select id="queryStudentBySex" parameterType="String"
+		resultMap="List_User">
+		SELECT u.*
+		FROM user_table u, student_table s
+		WHERE s.student_sex = #{value} AND u.user_id = s.student_id and u.user_identity = "student"
+	</select>
+	
+	<select id="queryTeacherBySex" parameterType="String"
+		resultMap="List_User">
+		SELECT u.*
+		FROM user_table u, teacher_table t
+		WHERE t.teacher_sex = #{value} AND u.user_id = t.teacher_id and u.user_identity = "teacher"
+	</select>
+	
+	<select id="queryAdministartorBySex" parameterType="String"
+		resultMap="List_User">
+		SELECT u.*
+		FROM user_table u, administrator_table a
+		WHERE a.administrator_sex = #{value} AND u.user_id = a.administrator_id and u.user_identity = "administrator"
+	</select>
+
+	<resultMap type="User" id="List_User">
+		<result column="id" property="id" />
+		<result column="user_identity" property="identity" />
+		<result column="user_id" property="userId" />
+		<result column="user_password" property="password" />
+	</resultMap>
+
+	<select id="queryNameById" parameterType="String"
+		resultType="String">
+		SELECT administrator_name
+		FROM administrator_table
+		WHERE administrator_id = #{value}
+		UNION ALL
+		SELECT student_name
+		FROM student_table
+		WHERE student_id = #{value}
+		UNION ALL 
+		SELECT teacher_name
+		FROM teacher_table
+		WHERE teacher_id = #{value}
+	</select>
+	
+	<select id="queryStudentNameById" parameterType="String"
+		resultType="String">
+		SELECT student_name
+		FROM student_table
+		WHERE student_id = #{value}
+	</select>
+	
+	<select id="queryTeacherNameById" parameterType="String"
+		resultType="String">
+		SELECT teacher_name
+		FROM teacher_table
+		WHERE teacher_id = #{value}
+	</select>
+	
+	<select id="queryAdministratorNameById" parameterType="String"
+		resultType="String">
+		SELECT administrator_name
+		FROM administrator_table
+		WHERE administrator_id = #{value}
+	</select>
+	
+	<select id="queryStudentById" parameterType="String"
+		resultMap="List_Student">
+		SELECT u.*,s.student_name
+		FROM user_table u, student_table s
+		WHERE s.student_id = #{value} and u.user_identity = "student" AND u.user_id = s.student_id
+	</select>
+	
+	<resultMap type="User2" id="List_Student">
+		<result column="id" property="id" />
+		<result column="user_identity" property="identity" />
+		<result column="user_id" property="userId" />
+		<result column="user_password" property="password" />
+		<result column="student_name" property="name" />
+	</resultMap>
+	
+	<select id="queryTeacherById" parameterType="String"
+		resultMap="List_Teacher">
+		SELECT u.*,t.teacher_name
+		FROM user_table u, teacher_table t
+		WHERE t.teacher_id = #{value} and u.user_identity = "teacher" AND u.user_id = t.teacher_id
+	</select>
+	
+	<resultMap type="User2" id="List_Teacher">
+		<result column="id" property="id" />
+		<result column="user_identity" property="identity" />
+		<result column="user_id" property="userId" />
+		<result column="user_password" property="password" />
+		<result column="teacher_name" property="name" />
+	</resultMap>
+	
+	<select id="queryAdministratorById" parameterType="String"
+		resultMap="List_Administrator">
+		SELECT u.*,a.administrator_name
+		FROM user_table u, administrator_table a
+		WHERE a.administrator_id = #{value} and u.user_identity = "administrator" AND u.user_id = a.administrator_id
+	</select>
+	
+	<resultMap type="User2" id="List_Administrator">
+		<result column="id" property="id" />
+		<result column="user_identity" property="identity" />
+		<result column="user_id" property="userId" />
+		<result column="user_password" property="password" />
+		<result column="administrator_name" property="name" />
+	</resultMap>
+
+</mapper>

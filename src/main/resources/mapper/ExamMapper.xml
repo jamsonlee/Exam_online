@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.three.examonline.dao.ExamMapper">
+	<insert id="insertExam" parameterType="Exam">
+		insert into
+		exam_table(exam_time,exam_course,exam_paper)
+		values(#{time},#{courseId},#{paperId})
+	</insert>
+
+	<delete id="deleteExam" parameterType="Exam">
+		delete from exam_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+
+			<if test="courseId != null and courseId != 0">
+				and exam_course = #{courseId}
+			</if>
+
+			<if test="paperId != null and paperId != 0">
+				and exam_paper = #{paperId}
+			</if>
+		</where>
+	</delete>
+
+	<update id="updateExam" parameterType="Exam">
+		update exam_table
+		<set>
+			<if test="time != null">
+				exam_time = #{time},
+			</if>
+			
+			<if test="courseId != null and courseId != 0">
+				exam_course = #{courseId},
+			</if>
+
+			<if test="paperId != null and paperId != 0">
+				exam_paper = #{paperId},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="queryExam" parameterType="Exam" resultMap="List_Exam">
+		select *
+		from exam_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+
+			<if test="courseId != null and courseId != 0">
+				and exam_course = #{courseId}
+			</if>
+
+			<if test="paperId != null and paperId != 0">
+				and exam_paper = #{paperId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryExamByStudent" parameterType="Integer" resultMap="List_Exam">
+		select e.*
+		from exam_table e,course_table c,course_student_table s
+		where s.student = #{size} and s.course = c.id and c.id = e.exam_course
+	</select>
+
+	<resultMap type="Exam" id="List_Exam">
+		<result column="id" property="id" />
+		<result column="exam_time" property="time" />
+		<result column="exam_course" property="courseId" />
+		<result column="exam_paper" property="paperId" />
+	</resultMap>
+</mapper>

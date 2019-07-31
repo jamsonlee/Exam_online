@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.three.examonline.dao.CourseMapper">
+	<insert id="insertCourse" parameterType="Course">
+		insert into
+		course_table(course_name,course_type)
+		values(#{name},#{type})
+	</insert>
+
+	<delete id="deleteCourse" parameterType="Course">
+		delete from course_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+
+			<if test="name != null and name != ''">
+				and course_name = #{name}
+			</if>
+
+			<if test="type != null and type != ''">
+				and course_type = #{type}
+			</if>
+		</where>
+	</delete>
+
+	<update id="updateCourse" parameterType="Course">
+		update course_table
+		<set>
+			<if test="name != null and name != ''">
+				course_name = #{name},
+			</if>
+
+			<if test="type != null and type != ''">
+				course_type = #{type},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="queryCourse" parameterType="Course" resultMap="List_Course">
+		select *
+		from course_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+
+			<if test="name != null and name != ''">
+				and course_name = #{name}
+			</if>
+
+			<if test="type != null and type != ''">
+				and course_type = #{type}
+			</if>
+		</where>
+	</select>
+
+	<resultMap type="Course" id="List_Course">
+		<result column="id" property="id" />
+		<result column="course_type" property="type" />
+		<result column="course_name" property="name" />
+	</resultMap>
+
+	<insert id="insertStudent" parameterType="CourseUser">
+		insert into
+		course_student_table(course,student)
+		values(#{courseId},#{userId})
+	</insert>
+
+	<delete id="deleteStudent" parameterType="CourseUser">
+		delete from course_student_table
+		<where>
+			<if test="courseId != null and courseId != 0">
+				and course = #{courseId}
+			</if>
+
+			<if test="userId != null and userId != 0">
+				and student = #{userId}
+			</if>
+		</where>
+	</delete>
+	
+	<select id="queryStudent" parameterType="Integer" resultType="Integer">
+		select student
+		from course_student_table
+		where course = #{size}
+	</select>
+	
+	<select id="queryCourseByS" parameterType="Integer" resultType="Integer">
+		select course
+		from course_student_table
+		where student = #{size}
+	</select>
+	
+	<insert id="insertTeacher" parameterType="CourseUser">
+		insert into
+		course_teacher_table(course,teacher)
+		values(#{courseId},#{userId})
+	</insert>
+
+	<delete id="deleteTeacher" parameterType="CourseUser">
+		delete from course_teacher_table
+		<where>
+			<if test="courseId != null and courseId != 0">
+				and course = #{courseId}
+			</if>
+
+			<if test="userId != null and userId != 0">
+				and teacher = #{userId}
+			</if>
+		</where>
+	</delete>
+	
+	<select id="queryTeacher" parameterType="Integer" resultType="Integer">
+		select teacher
+		from course_teacher_table
+		where course = #{size}
+	</select>
+	
+	<select id="queryCourseByT" parameterType="Integer" resultType="Integer">
+		select course
+		from course_teacher_table
+		where teacher = #{size}
+	</select>
+</mapper>

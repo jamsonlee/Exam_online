@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.three.examonline.dao.PaperMapper">
+	<insert id="insertPaper" parameterType="Paper">
+		insert into
+		paper_table(paper_points,paper_passpoints,paper_course,paper_teacher)
+		values(#{points},#{passpoints},#{courseId},#{teacherId})
+	</insert>
+
+	<delete id="deletePaper" parameterType="Paper">
+		delete from paper_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+
+			<if test="courseId != null and courseId != 0">
+				and paper_course = #{courseId}
+			</if>
+
+			<if test="teacherId != null and teacherId != 0">
+				and paper_teacher = #{teacherId}
+			</if>
+		</where>
+	</delete>
+
+	<update id="updatePaper" parameterType="Paper">
+		update paper_table
+		<set>
+			<if test="points != null and points != 0">
+				paper_points = #{points},
+			</if>
+
+			<if test="passpoints != null and passpoints != 0">
+				exam_passpoints = #{passpoints},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="queryPaper" parameterType="Paper" resultMap="List_Paper">
+		select *
+		from paper_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			
+			<if test="points != null and points != 0">
+				and paper_points= #{points}
+			</if>
+			
+			<if test="passpoints != null and passpoints != 0">
+				and paper_passpoints = #{passpoints}
+			</if>
+
+			<if test="courseId != null and courseId != 0">
+				and paper_course = #{courseId}
+			</if>
+
+			<if test="teacherId != null and teacherId != 0">
+				and paper_teacher = #{teacherId}
+			</if>
+		</where>
+	</select>
+
+	<resultMap type="Paper" id="List_Paper">
+		<result column="id" property="id" />
+		<result column="paper_points" property="points" />
+		<result column="paper_passpoints" property="passpoints" />
+		<result column="paper_course" property="courseId" />
+		<result column="paper_teacher" property="teacherId" />
+	</resultMap>
+	
+	<insert id="insertQuestion" parameterType="PaperQuestion">
+		insert into paper_question_table(paper,questions)
+		values(#{paper},#{question})
+	</insert>
+	
+	<delete id="deleteQuestion" parameterType="Integer">
+		delete from paper_question_table
+		where paper = #{size}
+	</delete>
+	
+	<update id="updateQuestion" parameterType="PaperQuestion">
+		update paper_question_table
+		set questions = #{question}
+		where paper = #{paper}
+	</update>
+	
+	<select id="queryQuestion" parameterType="Integer" resultType="String">
+		select questions
+		from paper_question_table
+		where paper = #{size}
+	</select>
+</mapper>

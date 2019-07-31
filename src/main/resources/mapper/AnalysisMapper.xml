@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.three.examonline.dao.AnalysisMapper">
+	<insert id="insertAnalysis" parameterType="Analysis">
+		insert into
+		analysis_table(analysis_exam,analysis_max,analysis_min,analysis_average,analysis_all_number,analysis_passing_number)
+		values(#{examId},#{max},#{min},#{average},#{allNumber},#{passNumber})
+	</insert>
+	
+	<delete id="deleteAnalysis" parameterType="Analysis">
+		delete from analysis_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+
+			<if test="examId !=null and examId != 0">
+				and analysis_exam = #{examId}
+			</if>
+		</where>
+	</delete>
+	
+	<update id="updateAnalysis" parameterType="Analysis">
+		update analysis_table
+		<set>
+			<if test="examId !=null and examId != 0">
+				analysis_exam = #{examId},
+			</if>
+			
+			<if test="max !=null and max != 0">
+				analysis_max = #{max},
+			</if>
+			
+			<if test="average !=null and average != 0">
+				analysis_average = #{average},
+			</if>
+			
+			<if test="allNumber !=null and allNumber != 0">
+				analysis_all_number = #{allNumber},
+			</if>
+			
+			<if test="passNumber !=null and passNumber != 0">
+				analysis_pass_numebr = #{passNumber},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="queryAnalysis" parameterType="Analysis" resultMap="List_Analysis">
+		select *
+		from answersheet_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			
+			<if test="examId !=null and examId != 0">
+				and analysis_exam = #{examId}
+			</if>
+			
+			<if test="max !=null and max != 0">
+				and analysis_max = #{max}
+			</if>
+			
+			<if test="average !=null and average != 0">
+				and analysis_average = #{average}
+			</if>
+			
+			<if test="allNumber !=null and allNumber != 0">
+				and analysis_all_number = #{allNumber}
+			</if>
+			
+			<if test="passNumber !=null and passNumber != 0">
+				and analysis_pass_numebr = #{passNumber}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryAnalysisByExam" parameterType="Integer" resultMap="List_Analysis">
+		select *
+		from answersheet_table
+		where analysis_exam = #{size}
+	</select>
+
+	<resultMap type="Analysis" id="List_Analysis">
+		<result column="id" property="id" />
+		<result column="analysis_exam" property="examId" />
+		<result column="analysis_max" property="max" />
+		<result column="analysis_min" property="min" />
+		<result column="analysis_averagre" property="average" />
+		<result column="analysis_all_number" property="allNumber" />
+		<result column="analysis_passing_number" property="passNumber" />
+	</resultMap>
+</mapper>

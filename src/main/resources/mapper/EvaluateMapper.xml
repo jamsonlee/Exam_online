@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.three.examonline.dao.EvaluateMapper">
+	<!-- evaluate course -->
+	<insert id="insertEvaluateCourse" parameterType="Evaluate">
+		insert into
+		evaluate_course_table(evaluate_course,evaluate_student,evaluate_evaluate)
+		values(#{evaluated},#{student},#{evaluate})
+	</insert>
+	
+	<delete id="deleteEvaluateCourse" parameterType="Evaluate">
+		delete from evaluate_course_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			
+			<if test="student != null and student != 0">
+				and evaluate_student = #{student}
+			</if>
+			
+			<if test="evaluated != null and evaluated != 0">
+				and evaluate_course = #{evaluated}
+			</if>
+			
+			<if test="evaluate != null and evaluate != 0">
+				and evaluate_evaluate = #{evaluate}
+			</if>
+		</where>
+	</delete>
+
+	<update id="updateEvaluateCourse" parameterType="Evaluate">
+		update evaluate_course_table
+		<set>
+			<if test="student != null and student != 0">
+				evaluate_student = #{student},
+			</if>
+			
+			<if test="evaluated != null and evaluated != 0">
+				evaluate_course = #{evaluated},
+			</if>
+			
+			<if test="evaluate != null and evaluate != 0">
+				evaluate_evaluate = #{evaluate},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="queryEvaluateCourse" parameterType="Evaluate" resultMap="List_Evaluate_Course">
+		select *
+		from evaluate_course_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			
+			<if test="student != null and student != 0">
+				and evaluate_student = #{student}
+			</if>
+			
+			<if test="evaluated != null and evaluated != 0">
+				and evaluate_course = #{evaluated}
+			</if>
+			
+			<if test="evaluate != null and evaluate != 0">
+				and evaluate_evaluate = #{evaluate}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryEvaluateCourseByStudent" parameterType="Integer" resultMap="List_Evaluate_Course">
+		select *
+		from evaluate_course_table
+		where evaluate_student = #{size}
+	</select>
+
+	<resultMap type="Evaluate" id="List_Evaluate_Course">
+		<result column="id" property="id" />
+		<result column="evaluate_student" property="student" />
+		<result column="evaluate_course" property="evaluated" />
+		<result column="evaluate_evaluate" property="evaluate" />
+	</resultMap>
+	
+	<!-- evaluate teacher -->
+	<insert id="insertEvaluateTeacher" parameterType="Evaluate">
+		insert into
+		evaluate_teacher_table(evaluate_teacher,evaluate_student,evaluate_evaluate)
+		values(#{evaluated},#{student},#{evaluate})
+	</insert>
+	
+	<delete id="deleteEvaluateTeacher" parameterType="Evaluate">
+		delete from evaluate_teacher_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			
+			<if test="student != null and student != 0">
+				and evaluate_student = #{student}
+			</if>
+			
+			<if test="evaluated != null and evaluated != 0">
+				and evaluate_teacher = #{evaluated}
+			</if>
+			
+			<if test="evaluate != null and evaluate != 0">
+				and evaluate_evaluate = #{evaluate}
+			</if>
+		</where>
+	</delete>
+
+	<update id="updateEvaluateTeacher" parameterType="Evaluate">
+		update evaluate_teacher_table
+		<set>
+			<if test="student != null and student != 0">
+				evaluate_student = #{student},
+			</if>
+			
+			<if test="evaluated != null and evaluated != 0">
+				evaluate_teacher = #{evaluated},
+			</if>
+			
+			<if test="evaluate != null and evaluate != 0">
+				evaluate_evaluate = #{evaluate},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="queryEvaluateTeacher" parameterType="Evaluate" resultMap="List_Evaluate_Teacher">
+		select *
+		from evaluate_teacher_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			
+			<if test="student != null and student != 0">
+				and evaluate_student = #{student}
+			</if>
+			
+			<if test="evaluated != null and evaluated != 0">
+				and evaluate_teacher = #{evaluated}
+			</if>
+			
+			<if test="evaluate != null and evaluate != 0">
+				and evaluate_evaluate = #{evaluate}
+			</if>
+		</where>
+	</select>
+
+	<select id="queryEvaluateTeacherByStudent" parameterType="Integer" resultMap="List_Evaluate_Teacher">
+		select *
+		from evaluate_teacher_table
+		where evaluate_student = #{size}
+	</select>
+	
+	<resultMap type="Evaluate" id="List_Evaluate_Teacher">
+		<result column="id" property="id" />
+		<result column="evaluate_student" property="student" />
+		<result column="evaluate_teacher" property="evaluated" />
+		<result column="evaluate_evaluate" property="evaluate" />
+	</resultMap>
+	
+	<!-- evaluate paper -->
+	<insert id="insertEvaluatePaper" parameterType="Evaluate">
+		insert into
+		evaluate_paper_table(evaluate_paper,evaluate_student,evaluate_evaluate)
+		values(#{evaluated},#{student},#{evaluate})
+	</insert>
+	
+	<delete id="deleteEvaluatePaper" parameterType="Evaluate">
+		delete from evaluate_paper_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			
+			<if test="student != null and student != 0">
+				and evaluate_student = #{student}
+			</if>
+			
+			<if test="evaluated != null and evaluated != 0">
+				and evaluate_paper = #{evaluated}
+			</if>
+			
+			<if test="evaluate != null and evaluate != 0">
+				and evaluate_evaluate = #{evaluate}
+			</if>
+		</where>
+	</delete>
+
+	<update id="updateEvaluatePaper" parameterType="Evaluate">
+		update evaluate_paper_table
+		<set>
+			<if test="student != null and student != 0">
+				evaluate_student = #{student},
+			</if>
+			
+			<if test="evaluated != null and evaluated != 0">
+				evaluate_paper = #{evaluated},
+			</if>
+			
+			<if test="evaluate != null and evaluate != 0">
+				evaluate_evaluate = #{evaluate},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="queryEvaluatePaper" parameterType="Evaluate" resultMap="List_Evaluate_Paper">
+		select *
+		from evaluate_paper_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			
+			<if test="student != null and student != 0">
+				and evaluate_student = #{student}
+			</if>
+			
+			<if test="evaluated != null and evaluated != 0">
+				and evaluate_paper = #{evaluated}
+			</if>
+			
+			<if test="evaluate != null and evaluate != 0">
+				and evaluate_evaluate = #{evaluate}
+			</if>
+		</where>
+	</select>
+
+	<select id="queryEvaluatePaperByStudent" parameterType="Integer" resultMap="List_Evaluate_Paper">
+		select *
+		from evaluate_paper_table
+		where evaluate_student = #{size}
+	</select>
+	
+	<resultMap type="Evaluate" id="List_Evaluate_Paper">
+		<result column="id" property="id" />
+		<result column="evaluate_student" property="student" />
+		<result column="evaluate_paper" property="evaluated" />
+		<result column="evaluate_evaluate" property="evaluate" />
+	</resultMap>
+</mapper>

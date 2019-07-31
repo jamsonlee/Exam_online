@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.three.examonline.dao.CheckMapper">
+	<insert id="insertCheck" parameterType="Check">
+		insert into
+		check_table(check_content,check_answersheet,check_state)
+		values(#{content},#{answersheet},#{state})
+	</insert>
+
+	<update id="updateCheck" parameterType="Check">
+		update check_table
+		<set>
+			<if test="content != null and content != ''">
+				check_content = #{content},
+			</if>
+
+			<if test="state != null and state != ''">
+				check_state = #{state},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="queryCheck" parameterType="Check" resultMap="List_Check">
+		select *
+		from check_table
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			
+			<if test="content != null and content != ''">
+				and check_content = #{content}
+			</if>
+
+			<if test="state != null and state != ''">
+				and check_state = #{state}
+			</if>
+
+			<if test="answersheet != null and answersheet != ''">
+				and check_answersheet = #{answersheet}
+			</if>
+		</where>
+	</select>
+
+	<resultMap type="Check" id="List_Check">
+		<result column="id" property="id" />
+		<result column="check_content" property="content" />
+		<result column="check_answersheet" property="answersheet" />
+		<result column="check_state" property="state" />
+	</resultMap>
+</mapper>
