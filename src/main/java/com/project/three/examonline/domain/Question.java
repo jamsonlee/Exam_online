@@ -34,7 +34,7 @@ public class Question {
 	}
 
 	public Question(Integer id, String type, String purpose, String question, String answer, String picture,
-			Integer points, Integer index, Integer course, Integer teacher) {
+			Integer points, Integer index, Integer courseId, Integer teacherId) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -44,8 +44,8 @@ public class Question {
 		this.picture = picture;
 		this.points = points;
 		this.index = index;
-		this.courseId = course;
-		this.teacherId = teacher;
+		this.courseId = courseId;
+		this.teacherId = teacherId;
 	}
 
 
@@ -83,13 +83,22 @@ public class Question {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-	public Integer getCourse() {
+
+	public Integer getCourseId() {
 		return courseId;
 	}
-	public void setCourse(Integer course) {
-		this.courseId = course;
+
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
 	}
 
+	public Integer getTeacherId() {
+		return teacherId;
+	}
+
+	public void setTeacherId(Integer teacherId) {
+		this.teacherId = teacherId;
+	}
 
 	public Integer getPoints() {
 		return points;
@@ -110,15 +119,6 @@ public class Question {
 		this.index = index;
 	}
 
-
-	public Integer getTeacher() {
-		return teacherId;
-	}
-
-
-	public void setTeacher(Integer teacher) {
-		this.teacherId = teacher;
-	}
 
 	public String getPurpose() {
 		return purpose;

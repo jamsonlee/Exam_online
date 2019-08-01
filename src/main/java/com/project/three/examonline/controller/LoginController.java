@@ -1,44 +1,74 @@
 package com.project.three.examonline.controller;
 
-import com.project.three.examonline.domain.User;
+import com.project.three.examonline.domain.User2;
 import com.project.three.examonline.service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 这个类是login时的控制器，不建议使用我的，用魏孝文的loginController
- */
 @Controller
-@RequestMapping("/login")
+@RequestMapping("login")
 public class LoginController {
-  @Autowired
-  private UserServiceImp userServiceImp;
+    @Autowired
+    private UserServiceImp userServiceImp;
 
-  /**
-   * login 的控制器，TODO：未连接数据库.
-   * @param identity 用户的身份，学生/老师/管理员
-   * @param userId 学工号
-   * @param password 密码
-   * @return 密码正确，用户返回对应的界面；密码错误，返回登录界面并进行提醒。
-   */
-  @RequestMapping(value = "/main/{identity}/{userId}/{password}", method = RequestMethod.GET)
-  @ResponseBody
-  public String insertUser(@PathVariable("identity") String identity, @PathVariable("userId") String userId,
-                           @PathVariable("password") String password){
-    User user = new User(null, identity, userId, password);
-    System.out.println(user);
-    if(user.getIdentity() != null && user.getPassword() != null && user.getUserId() != null){
-      //TODO: 查询一下user是不是已经存在，在确定登陆成功与否。
-      //成功界面
-      List<User> users =userServiceImp.queryUser(user);
-        if(users!=null&&users.size()!=0){
-        return "success";
-      }
+    //登陆界面
+    @RequestMapping("main")
+    public String test(){
+        System.out.println("test");
+        return "redirect:/login/login.jsp";
     }
-    //失败界面
-    return "failed";
-  }
+
+    //登陆界面传回参数，设置登陆状态
+    @RequestMapping("login")
+    public String login(HttpServletRequest req,String userName, String password,String identity){
+        System.out.println("此方法被调用");
+        //boolean student = identity.equals("student") && userName.equals("8848") && password.equals(123);
+        //boolean teacher = identity.equals("teacher") && userName.equals("java") && password.equals(910);
+        //boolean admin = identity.equals("admin") && userName.equals("java") && password.equals(666);
+        List<User2> query = queryUser(userName,identity);
+        System.out.println(query.size());
+        if (query.size() == 1) {
+            User2 user = query.get(0);
+            System.out.println(user);
+            HttpSession session = req.getSession();
+            session.setAttribute("flag",userName);
+            if (user.getPassword().equals(password)){
+                if (identity.equals("student")) {
+                    return "redirect:/student/studentMainFace.html";
+                } else if (identity.equals("teacher")) {
+                    return "redirect:/teacher/teacherMainFace.html";
+                } else {
+                    return "redirect:/informationManage/adminMainFace.html";
+                }
+            }
+
+        }
+        return "redirect:/login/login.jsp";
+
+    }
+
+
+    public List<User2> queryUser(String userId, String identity){
+        System.out.println(userId+identity);
+        if (userId == null||userId.equals("") || !(identity.equals("student") || identity.equals("admin") || identity.equals("teacher"))) {
+            return new ArrayList<>();
+        } else {
+            if(identity.equals("student")){
+                return userServiceImp.queryStudentById(userId);
+            }else if(identity.equals("teacher")){
+                System.out.println(true);
+                return userServiceImp.queryTeacherById(userId);
+            } else {
+                System.out.println(true);
+                return userServiceImp.queryAdministratorById(userId);
+            }
+        }
+    }
 }

@@ -3,6 +3,11 @@ package com.project.three.examonline.domain;
 public class CourseUser {
 	private Integer courseId;
 	private Integer userId;
+	//courseId:课程id
+	//userId:使用者的id，可以是老师，学生
+
+
+
 	public CourseUser() {
 		super();
 	}

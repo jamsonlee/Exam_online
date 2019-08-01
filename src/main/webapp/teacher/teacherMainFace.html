@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>教师主界面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../css/popper.js"></script>
+    <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="../style1.css" rel="stylesheet" type="text/css"/>
+    <link href="../main/style2.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="../jquery.SuperSlide.2.1.3.js"></script>
+    <style>a:link{text-decoration: none;color: #ffffff}</style>
+    <style>.homepage-row{
+        margin-right: -220px;
+        margin-left: 190px;
+    }</style>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">首页</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#">教师答疑</a></li>
+                <li><a href="../questionQuery.html">教师阅卷</a></li>
+                <li><a href="../questionQuery.html">成绩分析</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">退出登录</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="homepage">
+    <div class="homepage-title">在线教师 你搞清楚自己的定位了吗</div>
+
+    <div class="homepage-body">
+        <div class="homepage-container clearfix">
+            <div class="homepage-row clearfix " id="cardArea">
+                <a href="#" class="homepage-item active2">
+                    <div class="homepage-course-item">
+                        <div class="homepage-course-title">
+                            <div class="cou-img"></div>
+                            <div class="cou-til">阅卷</div>
+                            <div class="cou-lin"></div>
+                        </div>
+                        <div class="homepage-course-list">
+                            <p>语文</p>
+                            <p>数学</p>
+                            <p>英语</p>
+                        </div>
+                    </div>
+                    <div class="homepage-course-body">
+                        <div class="course-body-head">
+                            <div class="tag-img clearfix">
+                                <i><img src="images/icon002.png" alt=""></i>
+                                <span>在线阅卷</span>
+                            </div>
+                            <div class="tag-lin"></div>
+                        </div>
+                        <div class="course-body-item">
+                            <div class="course-body-item-list">
+                                <div class="course-body-item-list-title clearfix">
+                                    <i class="icon icon-item004"></i>
+                                    <span>语文</span>
+                                </div>
+                                <div class="course-body-item-list-text">知识共享、内容沉淀、知识提炼</div>
+                            </div>
+                            <div class="course-body-item-list">
+                                <div class="course-body-item-list-title clearfix">
+                                    <i class="icon icon-item005"></i>
+                                    <span>数学</span>
+                                </div>
+                                <div class="course-body-item-list-text">答疑解惑、实时互动</div>
+                            </div>
+                            <div class="course-body-item-list">
+                                <div class="course-body-item-list-title clearfix">
+                                    <i class="icon icon-item006"></i>
+                                    <span>英语</span>
+                                </div>
+                                <div class="course-body-item-list-text">系统学习，建构知识体系，学习就像打怪升级</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="homepage-item">
+                    <div class="homepage-course-item">
+                        <div class="homepage-course-title">
+                            <div class="cou-img"><img src="images/icon003.png" alt=""></div>
+                            <div class="cou-til">答疑</div>
+                            <div class="cou-lin"></div>
+                        </div>
+                        <div class="homepage-course-list">
+                            <p>教师</p>
+                            <p>学生</p>
+                            <p>管理员</p>
+                        </div>
+                    </div>
+
+
+                    <div class="homepage-course-body">
+                        <div class="course-body-head">
+                            <div class="tag-img clearfix">
+                                <i><img src="images/icon003.png" alt=""></i>
+                                <span>在线答疑</span>
+                            </div>
+                            <div class="tag-lin"></div>
+                        </div>
+                        <div class="course-body-item">
+                            <div class="course-body-item-list">
+                                <div class="course-body-item-list-title clearfix">
+                                    <i class="icon icon-item007"></i>
+                                    <span>管理教师</span>
+                                </div>
+                                <div class="course-body-item-list-text">标签化管理，知识结构更科学，让学员轻松找到心仪课程</div>
+                            </div>
+                            <div class="course-body-item-list">
+                                <div class="course-body-item-list-title clearfix">
+                                    <i class="icon icon-item008"></i>
+                                    <span>管理学生</span>
+                                </div>
+                                <div class="course-body-item-list-text">轻松应对十万人在线；多平台观看，随时随地学；微信宣传，一键分享</div>
+                            </div>
+                            <div class="course-body-item-list">
+                                <div class="course-body-item-list-title clearfix">
+                                    <i class="icon icon-item009"></i>
+                                    <span>管理管理员</span>
+                                </div>
+                                <div class="course-body-item-list-text">真题测评、智能组卷、学情分析，提高工作效率</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="homepage-item">
+                    <div class="homepage-course-item">
+                        <div class="homepage-course-title">
+                            <div class="cou-img"><img src="images/icon004.png" alt=""></div>
+                            <div class="cou-til">分析</div>
+                            <div class="cou-lin"></div>
+                        </div>
+                        <div class="homepage-course-list">
+                            <p>考试安排</p>
+                            <p>学生交流</p>
+                            <p>私信沟通</p>
+                        </div>
+                    </div>
+
+
+                    <div class="homepage-course-body">
+                        <div class="course-body-head">
+                            <div class="tag-img clearfix">
+                                <i><img src="images/icon004.png" alt=""></i>
+                                <span>成绩分析</span>
+                            </div>
+                            <div class="tag-lin"></div>
+                        </div>
+                        <div class="course-body-item">
+                            <div class="course-body-item-list">
+                                <div class="course-body-item-list-title clearfix">
+                                    <i class="icon icon-item010"></i>
+                                    <span>教师答疑</span>
+                                </div>
+                                <div class="course-body-item-list-text">视频弹题，边学边巩固，让学习更有深度</div>
+                            </div>
+                            <div class="course-body-item-list">
+                                <div class="course-body-item-list-title clearfix">
+                                    <i class="icon icon-item011"></i>
+                                    <span>小组讨论</span>
+                                </div>
+                                <div class="course-body-item-list-text">轻松应对十万人在线；多平台观看，随时随地学；微信宣传，一键分享</div>
+                            </div>
+                            <div class="course-body-item-list">
+                                <div class="course-body-item-list-title clearfix">
+                                    <i class="icon icon-item012"></i>
+                                    <span>私信沟通</span>
+                                </div>
+                                <div class="course-body-item-list-text">真题测评、智能组卷、学情分析，提高工作效率</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <!--                <a href="#" class="homepage-item">-->
+                <!--                    <div class="homepage-course-item">-->
+                <!--                        <div class="homepage-course-title">-->
+                <!--                            <div class="cou-img"><img src="images/icon005.png" alt=""></div>-->
+                <!--                            <div class="cou-til">销</div>-->
+                <!--                            <div class="cou-lin"></div>-->
+                <!--                        </div>-->
+                <!--                        <div class="homepage-course-list">-->
+                <!--                            <p>学习卡</p>-->
+                <!--                            <p>组合营销</p>-->
+                <!--                            <p>会员成长</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+
+
+                <!--                    <div class="homepage-course-body">-->
+                <!--                        <div class="course-body-head">-->
+                <!--                            <div class="tag-img clearfix">-->
+                <!--                                <i><img src="images/icon005.png" alt=""></i>-->
+                <!--                                <span>销</span>-->
+                <!--                            </div>-->
+                <!--                            <div class="tag-lin"></div>-->
+                <!--                        </div>-->
+                <!--                        <div class="course-body-item">-->
+                <!--                            <div class="course-body-item-list">-->
+                <!--                                <div class="course-body-item-list-title clearfix">-->
+                <!--                                    <i class="icon icon-item013"></i>-->
+                <!--                                    <span>学习卡</span>-->
+                <!--                                </div>-->
+                <!--                                <div class="course-body-item-list-text">视频弹题，边学边巩固，让学习更有深度</div>-->
+                <!--                            </div>-->
+                <!--                            <div class="course-body-item-list">-->
+                <!--                                <div class="course-body-item-list-title clearfix">-->
+                <!--                                    <i class="icon icon-item014"></i>-->
+                <!--                                    <span>组合营销</span>-->
+                <!--                                </div>-->
+                <!--                                <div class="course-body-item-list-text">轻松应对十万人在线；多平台观看，随时随地学；微信宣传，一键分享</div>-->
+                <!--                            </div>-->
+                <!--                            <div class="course-body-item-list">-->
+                <!--                                <div class="course-body-item-list-title clearfix">-->
+                <!--                                    <i class="icon icon-item015"></i>-->
+                <!--                                    <span>会员成长</span>-->
+                <!--                                </div>-->
+                <!--                                <div class="course-body-item-list-text">真题测评、智能组卷、学情分析，提高工作效率</div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </a>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+    "use strict"; !
+        function(t, i) {
+            var e = {
+                id: "#cardArea",
+                sid: ".homepage-item"
+            };
+            i.fn.cardArea = function(t) {
+                var t = i.extend({},
+                    e, t);
+                return this.each(function() {
+                    var e = i(t.id),
+                        n = e.find(t.sid);
+                    n.on("mouseenter",
+                        function() {
+                            i(this).addClass("active2").siblings().removeClass("active2")
+                        })
+                })
+            };
+        } (window, jQuery);
+
+    $(function() {
+        $("#cardArea").cardArea()
+    });
+
+
+</script>
+
+
+<script type="text/javascript">
+
+    jQuery(".ui-header-nav").slide({
+        type: "menu",
+        titCell: "dd",
+        targetCell: "ul",
+        delayTime: 0,
+        defaultPlay: false,
+        returnDefault: true
+    });
+
+    $(document).ready( function() {
+
+        $('.subMenu').smint({
+
+            'scrollSpeed' : 1000
+
+        });
+
+    });
+
+    (function() {
+            $.fn.smint = function(options) {
+                $(this).addClass('ui-header')
+                var settings = $.extend({
+                    'scrollSpeed ': 500
+                }, options);
+                return $('.ui-header a').each(function() {
+                    if (settings.scrollSpeed) {
+                        var scrollSpeed = settings.scrollSpeed
+                    }
+                    var stickyTop = $('.ui-header').offset().top;
+                    var stickyMenu = function() {
+                        var scrollTop = $(window).scrollTop();
+                        if (scrollTop > stickyTop) {
+                            $('.ui-header').css({
+                                'position': 'fixed',
+                                'top': 0
+                            }).addClass('fixed');
+                        } else {
+                            $('.ui-header').css({
+                                'position': 'absolute',
+                                'top': stickyTop
+                            }).removeClass('fixed');
+                        }
+                    };
+                    stickyMenu();
+                    $(window).scroll(function() {
+                        stickyMenu();
+                    });
+                    $(this).on('click', function(e) {
+                        var selectorHeight = $('.ui-header').height();
+                        e.preventDefault();
+                        var id = $(this).attr('id');
+                        var goTo = $('div.' + id).offset().top - selectorHeight;
+                        $("html, body").animate({
+                            scrollTop: goTo
+                        }, scrollSpeed);
+                    });
+                });
+            }
+        }
+    )();
+
+</script>
+</body>
+</html>

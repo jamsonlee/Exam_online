@@ -2,14 +2,10 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <title>科目管理</title>
-
-
+    <title>在线答疑</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 引入 Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-    <script src="jquery-3.2.1.js"></script>
     <script src="../css/popper.js"></script>
     <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
     <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
@@ -36,14 +32,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="#">考试安排</a></li>
-                <li><a href="questionQuery.html">题目管理</a></li>
+                <li><a href="../questionQuery.html">题目管理</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">信息管理<span class="caret"></span><span class="sr-only">(current)</span></a>
                     <ul class="dropdown-menu">
                         <li><a href="teacherQuery.html">教师管理</a></li>
                         <li><a href="studentQuery.html">学生管理</a></li>
                         <li><a href="adminQuery.html">管理员管理</a></li>
-                        <li><a href="subjectQuery.html">科目管理</a></li>
+                        <li><a href="../subjectQuery.html">科目管理</a></li>
                     </ul>
                 </li>
             </ul>
@@ -63,59 +59,33 @@
 
 <br/>
 <br/>
-<div class="container">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <form>
-            <div class="form-group">
-                <label for="name">查询科目</label>
-                <input type="text" class="form-control" id="name" placeholder="请输入科目名">
+    <form action="http://localhost:8080/question/insert">
+        <div class="container">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+
+                <h2>在线向老师提出问题</h2>
+                <select class>
+                    <option>111</option>
+                    <option>333</option>
+                    <option>222</option>
+                </select>
+                <div class="form-group">
+                    <input type="email" name="question" class="form-control" id="exampleInputEmail1" placeholder="问题题目">
+                </div>
+                <textarea class="form-control" name="answer" rows="3" placeholder="问题内容"></textarea>
+
+                <br>
+                <input class="btn btn-default" type="submit" value="提交问题">
             </div>
-            <button type="button" id="btn1" class="btn btn-default">查询</button>
-        </form>
-    </div>
-</div>
-
-<div class="container">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <table class="table table-hover" id = "table1">
-
-        </table>
-    </div>
-</div>
-
-<script>
-    $("#btn1").click(function () {
-        let name = $("#name").val();
-        let url = "/course/queryCourse/";
-        let data = "name="+name;
-        alert(data);
-        $.ajax({
-            url: url,
-            type: "GET",
-            datatype:"json",
-            data: data,
-            success:function (list) {
-                console.log(list);
-                var insertHtml = `<tr><th>ID</th><th>名字</th></tr>`;
-                for(var subject of list) {
-                    insertHtml += `<tr><td>${subject.id}</td><td>${subject.name}</td></tr>`;
-                }
-                $("#table1").append(insertHtml);
-            },
-            error:function (str) {
-                alert("出现错误！");
-            }
-        })
-    })
-</script>
+        </div>
+    </form>
 
 
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-<script src="jquery-3.2.1.js"></script>
+<script src="../jquery-3.2.1.js"></script>
 <!-- 包括所有已编译的插件 -->
-<script src="css/bootstrap.js"></script>
+<script src="../css/bootstrap.js"></script>
 
 </body>
 </html>

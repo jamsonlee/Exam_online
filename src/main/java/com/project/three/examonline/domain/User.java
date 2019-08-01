@@ -4,6 +4,11 @@ package com.project.three.examonline.domain;
  * 用于表示用户
  */
 public class User {
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", identity=" + identity + ", userId=" + userId + ", password=" + password + "]";
+	}
+
 	//fields
 	private Integer id;
 	private String identity;
@@ -61,15 +66,5 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	@Override
-	public String toString() {
-		return "User{" +
-				"id=" + id +
-				", identity='" + identity + '\'' +
-				", userId='" + userId + '\'' +
-				", password='" + password + '\'' +
-				'}';
 	}
 }

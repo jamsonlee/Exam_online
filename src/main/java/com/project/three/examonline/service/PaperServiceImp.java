@@ -44,10 +44,6 @@ public class PaperServiceImp implements PaperService {
    return paperMapper.queryPaper(paper);
   }
 
-  /***
-   * 更新试卷中的试题.
-   * @param paperquestion paperquestion存放paper和question的关系
-   */
   @Override
   public void updateQuestion(PaperQuestion paperquestion) {
     //paper是paperquestion对应的paper。
@@ -56,12 +52,6 @@ public class PaperServiceImp implements PaperService {
     //设置新试题。
     paperquestion.setQuestion(generatePaper(paper.getCourseId()));
   }
-
-  /**
-   * 根据course自动生成试卷（10道选择，5道非选择题）
-   * @param course courseId
-   * @return 试题id组成的字符串，每到题之间使用"=::="分割。
-   */
   private String generatePaper(Integer course){
     StringBuilder question = new StringBuilder();
     List<Question> questions1 = questionMapper.queryQuestion(new Question(null,"single","exam",

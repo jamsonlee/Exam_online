@@ -70,12 +70,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 	</select>
-	
-	<select id="queryEvaluateCourseByStudent" parameterType="Integer" resultMap="List_Evaluate_Course">
-		select *
-		from evaluate_course_table
-		where evaluate_student = #{size}
-	</select>
 
 	<resultMap type="Evaluate" id="List_Evaluate_Course">
 		<result column="id" property="id" />
@@ -152,12 +146,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 
-	<select id="queryEvaluateTeacherByStudent" parameterType="Integer" resultMap="List_Evaluate_Teacher">
-		select *
-		from evaluate_teacher_table
-		where evaluate_student = #{size}
-	</select>
-	
 	<resultMap type="Evaluate" id="List_Evaluate_Teacher">
 		<result column="id" property="id" />
 		<result column="evaluate_student" property="student" />
@@ -233,12 +221,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 
-	<select id="queryEvaluatePaperByStudent" parameterType="Integer" resultMap="List_Evaluate_Paper">
-		select *
-		from evaluate_paper_table
-		where evaluate_student = #{size}
-	</select>
-	
 	<resultMap type="Evaluate" id="List_Evaluate_Paper">
 		<result column="id" property="id" />
 		<result column="evaluate_student" property="student" />

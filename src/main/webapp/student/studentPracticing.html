@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <title>在线考试</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../css/popper.js"></script>
+    <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+        $(function () {
+            getId();
+        });
+
+        function getId() {
+            var id = $.query.get("id");
+            putQuestion(id);
+        }
+
+        function putQuestion(id) {
+            let data = "id="+id;
+            alert(data);
+            let url = "/question/query2/";
+            $.ajax({
+                url: url,
+                type: "GET",
+                datatype:"json",
+                data: data,
+                success:function (question) {
+                    alert("success");
+                    let insertHtml = `<h4>${question.question}(${question.points})</h4><p>question.picture</p>
+                                    <textarea class="form-control" placeholder="请输入答案"></textarea><br/><br/>
+                                       <button type="button" id="btn1" onclick="showAnswer()">显示答案</button>
+                                       <button type="button" id="btn2" onclick="next()">下一题</button>
+                                       <a href="studentPractice.html"><button type="button" id="btn3">结束</button></a>
+                                       <p style="visibility: hidden" id="answerText">${question.answer}</p>`;
+                    $("#questionArea").append(insertHtml);
+                },
+                error:function (str) {
+                    alert("出现错误！");
+                }
+            })
+        }
+    </script>
+    <script>
+        function showAnswer() {
+            $("#answerText").style.visibility="visible";
+        }
+    </script>
+
+    <script>
+        function next(courseId,type) {
+            let data = "courseId="+courseId+"&type="+type;
+            $.ajax({
+                url: url,
+                type: "GET",
+                datatype:"json",
+                data: data,
+                success:function (id) {
+                    window.location.href = "studentPracticing.html?id=" + id;
+                },
+                error:function (str) {
+                    alert("出现错误！");
+                }
+            })
+        }
+    </script>
+</head>
+<body style="">
+<!--顶部导航栏-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">首页</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="studentGoExam.html">在线考试</a></li>
+                <li><a href="examAdmin.html">在线练习</a></li>
+                <li><a href="../questionQuery.html">评价教学</a></li>
+                <li><a href="../questionQuery.html">在线答疑</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">退出登录</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="col-md-3"></div>
+<div class="col-md-6" id="questionArea">
+<!--    <h4>1.你是什么垃圾？</h4>-->
+<!--    <br>-->
+<!--    <p>大型可燃垃圾。湿垃圾。干垃圾。</p>-->
+<!--    <br/>-->
+<!--    <br/>-->
+
+<!--    <textarea class="form-control" rows="3" placeholder="填写答案"></textarea>-->
+
+<!--    <br>-->
+<!--    <br>-->
+
+<!--    <input class="btn btn-default" type="submit" value="显示答案">-->
+<!--    <input class="btn btn-default" type="submit" value="结束练习" style="float: right;">-->
+<!--    <input class="btn btn-default" type="submit" value="下一题" style="float: right;">-->
+
+</div>
+
+
+
+
+
+<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+<script src="../jquery-3.2.1.js"></script>
+<!-- 包括所有已编译的插件 -->
+<script src="../css/bootstrap.js"></script>
+
+</body>
+</html>

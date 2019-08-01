@@ -57,11 +57,12 @@ public class ExamController {
   @ResponseBody
   public String deleteExam(Integer id){
     Exam exam = new Exam(id, null, null, null);
-    if(id!=null&&id!=0){
-      if(examService.queryExam(exam)!=null&&examService.queryExam(exam).size()==1){
-        examService.deleteExam(exam);
+    if(id!=0){
+      /*if(examService.queryExamSheet(exam)!=null&&examService.queryExamSheet(exam).size()==1){
+        examService.deleteExamSheet(exam);
         return "deleteExamSuccess";
-      }
+      }*/
+      return "deleteExamSuccess";
     }
     return "deleteExamFailed";
   }
@@ -76,14 +77,13 @@ public class ExamController {
   @RequestMapping(value = "/update", method = RequestMethod.GET)
   @ResponseBody
   public String updateExam(Integer id, String courseId, String paperId){
-    Exam exam = new Exam(id, null, null, null);
+    Exam exam = new Exam(id, null, Integer.valueOf(courseId), Integer.valueOf(paperId));
     if(exam.getCourse() != null && exam.getPaper() != null){
-      if(examService.queryExam(exam)!=null && examService.queryExam(exam).size()==1){
-        exam.setCourse(Integer.valueOf(courseId));
-        exam.setPaper(Integer.valueOf(paperId));
-        examService.updateExam(exam);
+      /*if(examService.queryExamSheet(exam)!=null&&examService.queryExamSheet(exam).size()==1){
+        examService.updateExamSheet(exam);
         return "updateExamSuccess";
-      }
+      }*/
+      return "updateExamSuccess";
     }
     return "updateExamFailed";
   }
@@ -98,30 +98,34 @@ public class ExamController {
   public Exam getExamById(Integer id){
     if(id!=null&&id!=0){
       Exam exam = new Exam(id, null, null, null);
-      List<Exam> exams = examService.queryExam(exam);
+      /*List<Exam> exams = examService.queryExamSheet(exam);
       if(exams!=null&&exams.size()==1){
         return exams.get(0);
-      }
+      }*/
+      return new Exam(1,new Time(111), 2,3);
     }
     return null;
   }
   @RequestMapping("/alltest")
   @ResponseBody
   public List<Exam> getAllExam(){
-    return examService.queryExam(new Exam());
+    List<Exam> exams = new ArrayList<>();
+    exams.add(new Exam(1, new Time(60), 2,3));
+    return exams;
+    //return examService.queryExamSheet(new Exam());
   }
 
   @RequestMapping(value = "/getstudentexam", method = RequestMethod.GET)
   @ResponseBody
   public List<Exam> getExamByStudentId(){
 
-    //TODO: 更新获取id, 通过session
-   /* if(id!=null&&id!=0){
-    List<User2> user2s = userService.queryStudentById(String.valueOf(id))
+    //TODO: 更新获取id
+    /*if(id!=null&&id!=0){
+    *//*List<User2> user2s = userService.queryStudentById(String.valueOf(id))
     if(user2s!=null&&user2s.size()==1){
       User2 user2 = user2s.get(0);
       return examService.queryExamByStudent(id);
-    }
+    }*//*
     List<Exam> exams = new ArrayList<>();
     exams.add(new Exam(1, null, 2, 3));
     return exams;

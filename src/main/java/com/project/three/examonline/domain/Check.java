@@ -1,8 +1,5 @@
 package com.project.three.examonline.domain;
 
-/**
- * 学生对成绩进行申诉的数据结构check
- */
 public class Check {
 	private Integer id;
 	private Integer answersheet;
